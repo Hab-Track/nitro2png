@@ -48,7 +48,7 @@ def convert(file):
             try:
                 decompressed = decompressor.decompress(compressed) + decompressor.flush()
 
-                if is_probably_reversed(decompressed[::-1]):
+                if is_probably_reversed(decompressed):
                     decompressed = decompressed[::-1]
 
                 yield name, decompressed
