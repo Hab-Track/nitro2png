@@ -5,12 +5,12 @@ from .read_bytes import ReadBytes
 
 def is_probably_reversed(data: bytes) -> bool:
     reversed_snippets = [b'}', b'eman', b'tamrof', b'ezis']
-    png_signature = b'\n\x1a\r\nGNP\x89'
+    reversed_png_signature = b'GNP\x89'
 
     if all(s in data.lower() for s in reversed_snippets):
         return True
 
-    if data.startswith(png_signature):
+    if reversed_png_signature in data:
         return True
 
     return False
