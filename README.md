@@ -8,6 +8,6 @@ Big thanks to WiredSpast
 # Usage
 `python main.py <file>`
 
-You can also drag your .nitro file in the convert.py
+You can also drag your .nitro file in the `main.py`
 
 ![](https://github.com/Laande/nitro2png/blob/main/demo.gif)
