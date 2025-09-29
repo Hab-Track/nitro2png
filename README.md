@@ -6,7 +6,7 @@ And create a .json file with all the data
 Big thanks to WiredSpast
 
 # Usage
-`python convert.py <file>`
+`python main.py <file>`
 
 You can also drag your .nitro file in the convert.py
 
