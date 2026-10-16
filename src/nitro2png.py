@@ -21,6 +21,14 @@ def is_png(data: bytes) -> bool:
     return data.startswith(png_signature)
 
 
+def is_zlib(data: bytes) -> bool:
+    if len(data) < 2:
+        return False
+
+    cmf, flg = data[0], data[1]
+    return (cmf & 0x0f) == 8 and ((cmf << 8) + flg) % 31 == 0
+
+
 def extract_zip(file):
     with zipfile.ZipFile(file, 'r') as zip_ref:
         for file_info in zip_ref.infolist():
@@ -40,10 +48,10 @@ def unpack_nitro(data: bytes):
         name = read_bytes.read_string()
         length = read_bytes.read_int()
         compressed = read_bytes.read_bytes(length)
-        if compressed.startswith(b'x\x9c'):
-            decompressor = zlib.decompressobj()
-        elif compressed.startswith(b'\x1f\x8b\x08'):
+        if compressed.startswith(b'\x1f\x8b\x08'):
             decompressor = zlib.decompressobj(16 + zlib.MAX_WBITS)
+        elif is_zlib(compressed):
+            decompressor = zlib.decompressobj()
         else:
             print(f"Unknown compression format for {name}")
             continue
